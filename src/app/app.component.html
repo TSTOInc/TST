@@ -1,0 +1,19 @@
+@if(!isAuthChecked) {
+
+<div class="loading-container">
+  <app-loader></app-loader>
+</div>
+
+
+} @else if(!isLoggedIn) {
+
+<app-login></app-login>
+
+}
+@else {
+
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+}
