@@ -64,8 +64,8 @@ export class AuthService {
     try {
       await this.account.createOAuth2Session(
         OAuthProvider.Google,
-        'https://yeetco.shop',
-        'https://yeetco.shop'
+        'https://yeetco.shop/home',
+        'https://yeetco.shop/home'
       );
     } catch (error: any) {
       this.isLoggedInSubject.next(false);

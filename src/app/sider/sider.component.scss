@@ -1,28 +1,18 @@
-* {
-  font-family: 'Roboto', sans-serif;
-}
-
-.loading-container {
-  position: fixed;
-  /* or absolute if inside a relative parent */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
 :host {
   display: flex;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+nz-sider {
+  position: fixed;
+}
 .app-layout {
   height: 100vh;
 }
 
 .menu-sidebar {
-  position: relative;
+  position: fixed;
   z-index: 10;
   min-height: 100vh;
   box-shadow: 2px 0 6px rgba(0,21,41,.35);
@@ -82,12 +72,11 @@ nz-header {
 }
 
 nz-content {
-  margin: 56px 0px 0px 256px;
+  margin: 24px;
 }
 
 .inner-content {
   padding: 24px;
-  min-height: calc(100vh - 64px);
   background: #fff;
   height: 100%;
 }

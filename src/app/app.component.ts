@@ -5,10 +5,16 @@ import { AuthService } from './services/auth/auth.service';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { LoaderComponent } from "./loader/loader.component";
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { SiderComponent } from './sider/sider.component';
+import { HeaderComponent } from "./header/header.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, LoginComponent, NzAlertModule, NzSpinModule, LoaderComponent],
+  imports: [RouterOutlet, LoginComponent, NzAlertModule, NzSpinModule, LoaderComponent, NzBreadCrumbModule, NzIconModule, NzLayoutModule, NzMenuModule, SiderComponent, HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
