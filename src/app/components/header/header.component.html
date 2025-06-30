@@ -1,0 +1,37 @@
+<nz-header class="yt-header">
+  <div class="yt-header-content">
+    <div class="left-section">
+
+    </div>
+    <div class="right-section">
+      <button nz-button nzSize="large" nzType="primary" class="menuButton" (click)="addEntity()" *ngIf="showAddButton"><nz-icon nzType="plus" nzTheme="outline" />Add {{currentUrl.toUpperCase().slice(1, 2) + currentUrl.slice(2, -1)}}</button>
+      <div nz-dropdown [nzDropdownMenu]="userMenu" nzTrigger="click">
+        <div class="avatar-wrapper">
+          <img src="https://fra.cloud.appwrite.io/v1/avatars/initials?name={{username}}" alt="user avatar"
+            class="avatar" draggable="false" />
+        </div>
+      </div>
+
+      <nz-dropdown-menu #userMenu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item disabled class="user-menu">
+            <div class="user-info">
+            <div class="avatar-wrapper">
+              <img src="https://fra.cloud.appwrite.io/v1/avatars/initials?name={{ username }}" alt="user avatar"
+                class="avatar" draggable="false" />
+            </div>
+            <strong>{{ username }}</strong>
+            </div>
+          </li>
+          <li nz-menu-divider></li>
+          <li nz-menu-item class="menu-item">
+            <button nz-button nzSize="large" nzType="text" class="menuButton"><nz-icon nzType="setting" />Settings</button>
+          </li>
+          <li nz-menu-item class="menu-item logout">
+            <button nz-button nzDanger nzSize="large"  class="menuButton logout" (click)="logOut()"><nz-icon nzType="logout" />Log Out</button>
+          </li>
+        </ul>
+      </nz-dropdown-menu>
+    </div>
+  </div>
+</nz-header>

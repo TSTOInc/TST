@@ -1,0 +1,16 @@
+<p>{{company?.name}}</p>
+<span>
+<nz-typography
+  [nzCopyable]="true"
+  [nzContent]="company?.street + ', ' + company?.city + ', ' + company?.state + ' ' + company?.zip"
+  class="address-text">
+</nz-typography>
+
+</span>
+
+
+<p>MC #{{company?.mc}}</p>
+<p>USDOT #{{company?.dot}}</p>
+
+<span class="no-select">EIN: </span>
+<nz-typography [nzCopyable]="true" [nzContent]="company?.ein.slice(0,2) + '-' + company?.ein.slice(2)" [nzCopyText]="company?.ein" />

@@ -4,13 +4,13 @@ import { LoginComponent } from './pages/login/login.component';
 import { AuthService } from './services/auth/auth.service';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
-import { LoaderComponent } from "./loader/loader.component";
+import { LoaderComponent } from "./components/loader/loader.component";
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
-import { SiderComponent } from './sider/sider.component';
-import { HeaderComponent } from "./header/header.component";
+import { SiderComponent } from './components/sider/sider.component';
+import { HeaderComponent } from "./components/header/header.component";
 
 @Component({
   selector: 'app-root',

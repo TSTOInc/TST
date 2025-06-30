@@ -1,0 +1,99 @@
+.yt-header {
+  position: fixed;
+  z-index: 5; // Ensures it's above other elements
+  width: 100%; // Required when using position: fixed
+  margin: 0px 0px 0 0;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+  padding: 0 16px;
+  height: 57px;
+  display: flex;
+  align-items: center;
+
+  .yt-header-content {
+    padding-left: 256px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    @media (max-width: 768px) {
+      padding-left: 80px;
+    }
+  }
+
+  .left-section .logo {
+    font-weight: bold;
+    font-size: 20px;
+    color: #000;
+    margin: 0;
+  }
+
+  .right-section {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+
+  }
+}
+
+.avatar-wrapper {
+  cursor: pointer;
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #e8e8e8;
+  }
+}
+
+ul {
+  border-radius: 16px;
+  padding: 0;
+
+  //hover
+  .user-menu:hover {
+    border-radius: 16px 16px 0 0;
+  }
+  .logout:hover {
+    border-radius: 0 0 16px 16px;
+  }
+}
+
+.logout {
+  border-radius: 0 0 16px 16px;
+}
+
+.username {
+  font-weight: bold;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  /* Space between image and username */
+}
+
+.user-menu {
+  padding: 16px;
+}
+
+.menu-item {
+  padding: 0px 0px;
+
+  button {
+    height: 50px;
+  }
+}
+
+.menuButton {
+  width: 300px;
+  justify-content: flex-start;
+  /* Align contents to the left */
+  gap: 0.5rem;
+  /* Space between icon and text */
+}

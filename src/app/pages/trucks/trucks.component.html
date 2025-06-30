@@ -1,0 +1,22 @@
+<div class="gutter-example">
+  <div nz-row [nzGutter]="[16, 16]">
+    @for (item of listOfData; track $index) {
+    <div nz-col class="gutter-row" [nzXs]="24" [nzSm]="12" [nzMd]="8" [nzLg]="6">
+      <!-- Wrap card in a link -->
+      <a [routerLink]="['./', item.$id]" class="block no-underline">
+        <nz-card nzHoverable [nzCover]="imageCoverTpl" style="border-radius: 8px; border: 0;">
+          <nz-card-meta [nzTitle]="item.unit_number" [nzDescription]="(item.make ? item.make : 'N/A') + ' ' + (item.model ? item.model : '')"></nz-card-meta>
+
+          <ng-template #imageCoverTpl>
+            <div style=" display: flex; justify-content: center; align-items: center;">
+              <img [src]="item.img" alt="example"
+                style="width:99%; display:block; object-fit: cover; aspect-ratio: 1; height: 240px; border-radius: 8px;" />
+            </div>
+            
+          </ng-template>
+        </nz-card>
+      </a>
+    </div>
+    }
+  </div>
+</div>

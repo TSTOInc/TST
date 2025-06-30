@@ -1,0 +1,47 @@
+::ng-deep nz-page-header .ant-page-header-heading-title,
+::ng-deep nz-page-header .ant-page-header-back-icon {
+  color: #ffffff !important;
+}
+
+::ng-deep nz-page-header .ant-page-header-back-button .anticon svg {
+  color: white !important;
+  fill: currentColor;
+}
+
+
+ul[nz-menu] {
+  border-radius: 16px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  li[nz-menu-item] {
+    padding: 0;
+    overflow: hidden; // clip child bg to radius
+
+    button {
+      height: 50px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0.5rem;
+      background: transparent;
+    }
+
+    &:first-child {
+      button{
+        border-radius: 16px 16px 0 0;
+      }
+      border-radius: 16px 16px 0 0;
+    }
+
+    &:last-child {
+      button{
+        border-radius: 0 0 16px 16px;
+      }
+      border-radius: 0 0 16px 16px;
+    }
+  }
+}
+

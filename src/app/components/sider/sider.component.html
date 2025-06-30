@@ -1,0 +1,28 @@
+<nz-sider class="menu-sidebar" nzTheme="light" nzCollapsible nzWidth="256px" nzBreakpoint="md" [nzTrigger]="null">
+    <div class="sidebar-logo">
+        <a routerLink="/home">
+            <img src="TST-Icon.png" alt="logo" draggable="false">
+            <h1>TST Inc</h1>
+        </a>
+    </div>
+    <ul nz-menu nzMode="inline">
+        <li nz-menu-item nz-tooltip nzTooltipPlacement="right" nzMatchRouter>
+            <a routerLink="/home">
+                <nz-icon nzType="home" />
+                <span>Home</span>
+            </a>
+        </li>
+        <li nz-menu-item nz-tooltip nzTooltipPlacement="right" nzMatchRouter>
+            <a routerLink="/trucks">
+                <nz-icon nzType="truck" />
+                <span>Trucks</span>
+            </a>
+        </li>
+        <li nz-menu-item nz-tooltip nzTooltipPlacement="right" nzMatchRouter>
+            <a routerLink="/company">
+                <nz-icon nzType="solution"/>
+                <span>Company</span>
+            </a>
+        </li>
+    </ul>
+</nz-sider>

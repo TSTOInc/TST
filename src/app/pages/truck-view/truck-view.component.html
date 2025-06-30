@@ -1,0 +1,198 @@
+<div style="
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+    border-radius: 8px;
+  ">
+
+    <!-- Blurred background image -->
+    <img [src]="truck?.img || 'https://ik.imagekit.io/7lvwoay0t/Placeholder.svg'" alt="truck image" draggable="false"
+        style="
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 125%;
+      height: 125%;
+      object-fit: cover;
+      filter: blur(16px) brightness(0.75);
+      border-radius: 8px;
+      z-index: 1;
+    " />
+
+    <!-- Main truck image -->
+    <img [src]="truck?.img || 'https://ik.imagekit.io/7lvwoay0t/Placeholder.svg'" draggable="false" style="
+      width: 100%;
+      max-width: 800px;
+      display: block;
+      object-fit: cover;
+      aspect-ratio: 1;
+      height: 300px;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.521);
+    " />
+    <nz-page-header (click)="onBack()" nzBackIcon nzTitle="Back" style="position: absolute;
+    cursor: pointer;
+    color: white;
+    padding: 4px 8px 4px 20px;
+      top: 8px;
+      left: 8px;
+      margin: 0;
+      z-index: 3;
+            border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.164);
+      background: rgba(54, 54, 54, 0.192); /* semi-transparent dark overlay */
+        backdrop-filter: blur(8px);       /* glass-like blur behind the text */
+    -webkit-backdrop-filter: blur(8px); /* support for Safari */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); /* optional shadow for legibility */"></nz-page-header>
+
+
+
+<div style="position: absolute; bottom: 8px; left: 8px; margin: 0;       padding: 6px 6px 6px 12px; display: flex; align-items: center; gap: 6px; z-index: 4; border-radius: 16px;       border: 1px solid rgba(255, 255, 255, 0.164);
+      background: rgba(54, 54, 54, 0.192);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);">
+    <h1 nz-typography style="
+      position: relative;
+      margin: 0;
+      color: white;
+      z-index: 3;
+    ">
+        {{ truck?.unit_number }}
+    </h1>
+    <button nz-dropdown [nzDropdownMenu]="userMenu" nzTrigger="click" style="
+      padding: 5px 12px;
+      position: relative;
+      font-size: x-large;
+      margin: 0;
+      color: white;
+      z-index: 3;
+      border-radius: 16px;
+     background: none;
+     border:  none;
+    cursor: pointer;
+    ">
+        <nz-icon nzType="edit" nzTheme="outline"></nz-icon>
+    </button>
+</div>
+    <!-- Positioned text -->
+
+</div>
+
+
+<nz-tabset>
+    <nz-tab nzTitle="Info">
+        <h3 nz-typography style="margin-top: 0;">VIN: {{truck?.vin}}</h3>
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <h5 nz-typography style="margin: 0;">{{truck?.make}} {{truck?.model}}</h5>
+            <nz-tag [nzColor]="truck?.color?.toLowerCase()" style="border-radius: 16px; padding: 4px 16px;"
+                [ngStyle]="truck?.color?.toLowerCase() === 'white' ? { color: '#333', border: '1px solid #ccc' } : {}">{{
+                truck?.color }}</nz-tag>
+        </div>
+        <h5 nz-typography style="margin: 0;">{{truck?.transponder || 'No Transponder'}}</h5>
+        <h4 nz-typography>Plates</h4>
+        <nz-collapse>
+            @for (plate of truck?.plate; track plate) {
+            <nz-collapse-panel [nzHeader]="plate.number">
+                <p style="margin:0;">
+                    State: {{plate.state}} <br> Country: {{plate.country}}
+                </p>
+            </nz-collapse-panel>
+            }
+        </nz-collapse>
+    </nz-tab>
+    <nz-tab nzTitle="Repairs">
+        Contents of tab 2
+    </nz-tab>
+    <nz-tab nzTitle="Inspections">
+        <nz-table #basicTable [nzData]="truck?.inspections || []">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Documents</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (data of basicTable.data; track data) {
+                <tr>
+                    <td>{{ data.date | date:'HH:mm | MMM d, y' }}</td>
+                    <td>
+                        <button nz-button nzType="link" nz-popover nzPopoverTitle="Documents" nzPopoverTrigger="click"
+                            [nzPopoverContent]="contentTemplate">
+                            <nz-icon nzType="eye" nzTheme="outline" />
+                            View
+                        </button>
+                        <ng-template #contentTemplate>
+                            @for (item of data?.documents; track $index) {
+                            <a (click)="openPdfModal(item)">{{item.substring(item.lastIndexOf('/') + 1)}}</a><br>
+
+                            }
+                        </ng-template>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </nz-table>
+    </nz-tab>
+    <nz-tab nzTitle="Documents">
+
+<div class="gutter-example">
+  <div nz-row [nzGutter]="[16, 16]">
+    @for (item of truck?.docs; track $index) {
+    <div nz-col class="gutter-row" [nzXs]="24" [nzSm]="12" [nzMd]="8" [nzLg]="6">
+      <!-- Wrap card in a link -->
+      <a (click)="openPdfModal(item)" class="block no-underline">
+        <nz-card nzHoverable [nzCover]="imageCoverTpl" style="border-radius: 8px; border: 0;">
+        <nz-card-meta [nzTitle]="getDocTitle(item)"></nz-card-meta>
+
+
+          <ng-template #imageCoverTpl>
+  <div style="width: 100%; height: 240px; border-radius: 8px; overflow: hidden;">
+    <iframe 
+      [src]="item" 
+      style="width: 100%; height: 100%; border: none;" 
+    ></iframe>
+  </div>
+            
+          </ng-template>
+        </nz-card>
+      </a>
+    </div>
+    }
+  </div>
+</div>
+
+
+
+    </nz-tab>
+</nz-tabset>
+
+
+
+
+<nz-modal [(nzVisible)]="isModalVisible" nzCentered nzTitle="PDF Preview" (nzOnCancel)="handleCancel()" [nzFooter]="null" nzWidth="80vw">
+  <ng-container *nzModalContent>
+    {{currentPdfSrc}}
+    <embed [src]="safePdfSrc" style="width:100%; height:85vh;" frameborder="0" allowfullscreen>
+  </ng-container>
+
+</nz-modal>
+
+
+
+      <nz-dropdown-menu #userMenu="nzDropdownMenu" nzTrigger="click" nzPlacement="bottomLeft">
+        <ul nz-menu>
+          <li nz-menu-item class="menu-item">
+            <button nz-button nzSize="large" nzType="text" class="menuButton"><nz-icon nzType="edit" />Edit</button>
+          </li>
+          <li nz-menu-item class="menu-item">
+            <button nz-button nzDanger nzSize="large"  class="menuButton"><nz-icon nzType="delete" />Delete</button>
+          </li>
+        </ul>
+      </nz-dropdown-menu>

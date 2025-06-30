@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Account, Client, OAuthProvider } from 'appwrite';
+import { Account, Client, OAuthProvider, Databases } from 'appwrite';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Injectable({
@@ -8,6 +8,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class AuthService {
   private account: Account;
+  private databases: Databases;
 
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$: Observable<boolean> = this.isLoggedInSubject.asObservable();
@@ -15,7 +16,8 @@ export class AuthService {
   private isAuthCheckedSubject = new BehaviorSubject<boolean>(false);
   isAuthChecked$: Observable<boolean> = this.isAuthCheckedSubject.asObservable();
 
-  username = '';
+  private usernameSubject = new BehaviorSubject<string>("Guest");
+  username$: Observable<string> = this.usernameSubject.asObservable();
 
   constructor(private message: NzMessageService) {
     const client = new Client();
@@ -26,21 +28,25 @@ export class AuthService {
 
     this.account = new Account(client);
     this.getUser();
+    this.databases = new Databases(client);
+
   }
 
   getUser(): Promise<string> {
     return this.account.get()
       .then(user => {
         this.isLoggedInSubject.next(true);
-        this.username = user.name || 'Guest';
-        this.message.success('Welcome, ' + this.username);
-        return this.username;
+        const username = user.name || 'Guest';
+        this.usernameSubject.next(username);
+        this.message.success('Welcome, ' + username);
+        return username;
       })
       .catch(() => {
         this.isLoggedInSubject.next(false);
-        this.username = 'Guest';
+        const guestName = 'Guest';
+        this.usernameSubject.next(guestName);
         this.message.error('Could not retrieve user information');
-        return this.username;
+        return guestName;
       })
       .finally(() => {
         this.isAuthCheckedSubject.next(true);
@@ -84,4 +90,45 @@ export class AuthService {
         this.message.error('Logout failed');
       });
   }
+
+  ListDocuments(databaseId: string, collectionId: string): Promise<any> {
+    return this.databases.listDocuments(databaseId, collectionId)
+      .then(response => {
+        return response.documents;
+      })
+      .catch(error => {
+        this.message.error('Failed to list documents: ' + error.message);
+        throw error;
+      });
+  }
+  GetDocument(databaseId: string, collectionId: string, documentId: string): Promise<any> {
+    return this.databases.getDocument(databaseId, collectionId, documentId)
+      .then(response => {
+        return response;
+      })
+      .catch(error => {
+        this.message.error('Failed to get document: ' + error.message + ' || ' + documentId);
+        throw error;
+      });
+  }
+  async CreateDocument(databaseId: string, collectionId: string, documentId: string, data: any): Promise<any> {
+    try {
+      const response = await this.databases.createDocument(databaseId, collectionId, documentId, data);
+      return response;
+    } catch (error: any) {
+      this.message.error('Failed to create document: ' + error.message);
+      throw error;
+    }
+  }
+  createTruck(documentId: string, data: any): Promise<any> {
+    return this.databases.createDocument('tst', 'trucks', documentId, data)
+      .then(response => {
+        return response;
+      })
+      .catch(error => {
+        this.message.error('Failed to create document: ' + error.message);
+        throw error;
+      });
+  }
+  
 }

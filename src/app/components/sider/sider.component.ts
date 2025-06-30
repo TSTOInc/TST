@@ -10,7 +10,7 @@ import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-sider',
-  imports: [NzMenuModule, NzLayoutModule, NzIconModule, NzBreadCrumbModule, NzSpinModule, NzAlertModule, RouterOutlet, RouterLink],
+  imports: [NzMenuModule, NzLayoutModule, NzIconModule, NzBreadCrumbModule, NzSpinModule, NzAlertModule, RouterLink],
   templateUrl: './sider.component.html',
   styleUrl: './sider.component.scss'
 })
